@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<widget id="com.lechugo.maicomelona"
+version="1.0.0"
+xmlns="http://www.w3.org/ns/widgets"
+xmlns:android="http://schemas.android.com/apk/res/android">
+
+<name>Mai Comelona</name>
+
+<description>
+Juego creado por Lechugo
+</description>
+
+<author>
+Lechugo
+</author>
+
+<content src="index.html"/>
+
+<preference name="Fullscreen" value="true"/>
+<preference name="Orientation" value="portrait"/>
+
+<platform name="android">
+<icon src="icon.png"/>
+</platform>
+
+</widget>
