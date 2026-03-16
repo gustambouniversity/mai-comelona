@@ -9,7 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -19,13 +26,16 @@ jobs:
       - name: Install Cordova
         run: npm install -g cordova
 
-      - name: Create App
+      - name: Create Cordova App
         run: |
           cordova create app com.lechugo.maicomelona MaiComelona
           cd app
           cordova platform add android
-          rm -rf www/*
-          cp -r ../* www/
+
+      - name: Copy Game Files
+        run: |
+          rm -rf app/www/*
+          cp -r * app/www/ || true
 
       - name: Build APK
         run: |
