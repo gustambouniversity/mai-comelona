@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MAI COMELONA</title>
+
+<link rel="icon" href="icono.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+font-family:'Fredoka',sans-serif;
+background:url("menu_fondo.jpg") center/cover no-repeat;
+height:100vh;
+color:white;
+}
+
+/* SPLASH */
+
+#splash{
+position:fixed;
+width:100%;
+height:100%;
+z-index:999;
+}
+
+#splash img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* MENU */
+
+#menu{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+display:none;
+}
+
+#logo{
+width:300px;
+margin-bottom:25px;
+}
+
+.menuBtn{
+display:block;
+margin:12px auto;
+width:220px;
+padding:14px;
+font-size:18px;
+border:none;
+border-radius:14px;
+background:linear-gradient(#ff7ac8,#ff4fa0);
+color:white;
+cursor:pointer;
+}
+
+/* BOTON AJUSTES */
+
+#gear{
+position:fixed;
+top:15px;
+right:15px;
+font-size:26px;
+background:rgba(0,0,0,0.6);
+padding:8px 12px;
+border-radius:10px;
+cursor:pointer;
+z-index:50;
+}
+
+/* SETTINGS */
+
+#settings{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+text-align:center;
+padding-top:120px;
+z-index:100;
+}
+
+.langBtn{
+margin:10px;
+padding:12px 18px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#222;
+color:white;
+cursor:pointer;
+}
+
+/* MAPAS */
+
+#mapMenu{
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+}
+
+.mapImg{
+width:200px;
+margin:10px;
+border-radius:12px;
+}
+
+/* GAME */
+
+#game{
+display:none;
+}
+
+/* SCORE */
+
+#scoreBox{
+display:none;
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#000a;
+padding:10px 20px;
+border-radius:10px;
+}
+
+#cornerScore{
+display:none;
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#000a;
+padding:10px 18px;
+border-radius:10px;
+}
+
+/* PROGRESS */
+
+#progressBar{
+display:none;
+position:absolute;
+top:60px;
+left:50%;
+transform:translateX(-50%);
+width:70%;
+height:16px;
+background:#333;
+border-radius:10px;
+}
+
+#progress{
+height:100%;
+width:0%;
+background:#ff6fb5;
+border-radius:10px;
+}
+
+/* MAI */
+
+#mai{
+position:absolute;
+bottom:40px;
+left:50%;
+transform:translateX(-50%);
+width:120px;
+}
+
+.head{
+width:80px;
+height:80px;
+background:#8a4b2a;
+border-radius:50%;
+margin:auto;
+position:relative;
+}
+
+.eye{
+width:10px;
+height:10px;
+background:black;
+border-radius:50%;
+position:absolute;
+top:30px;
+}
+
+.eye.left{left:18px}
+.eye.right{right:18px}
+
+.mouth{
+width:26px;
+height:6px;
+background:black;
+border-radius:10px;
+position:absolute;
+bottom:15px;
+left:50%;
+transform:translateX(-50%);
+}
+
+.chew{
+animation:chew .2s alternate 4;
+}
+
+@keyframes chew{
+0%{height:6px}
+100%{height:18px}
+}
+
+.body{
+width:110px;
+height:50px;
+background:#ff7fc0;
+border-radius:25px;
+margin:auto;
+margin-top:-10px;
+}
+
+/* OBJETOS */
+
+.object{
+position:absolute;
+width:70px;
+}
+
+/* REGALO */
+
+#gift{
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#000c;
+padding:20px;
+border-radius:14px;
+text-align:center;
+}
+
+#gift img{
+width:220px;
+border-radius:10px;
+}
+
+/* CREDITOS */
+
+#credits{
+display:none;
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+text-align:center;
+padding-top:120px;
+}
+
+#credits img{
+width:420px;
+border-radius:12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="splash">
+<img src="splash.jpg">
+</div>
+
+<div id="gear" onclick="toggleSettings()">⚙</div>
+
+<div id="menu">
+
+<img id="logo" src="logo.png">
+
+<button id="playBtn" class="menuBtn" onclick="openMaps()">JUGAR</button>
+<button id="creditsBtn" class="menuBtn" onclick="showCredits()">CRÉDITOS</button>
+<button id="exitBtn" class="menuBtn" onclick="exitGame()">SALIR</button>
+
+</div>
+
+<div id="settings">
+
+<h2 id="langTitle">IDIOMA</h2>
+
+<button class="langBtn" onclick="setLang('es')">Español</button>
+<button class="langBtn" onclick="setLang('ar')">العربية</button>
+<button class="langBtn" onclick="setLang('oa')">oaxaqueño</button>
+<br><br>
+
+<h2 id="audioTitle">SONIDO</h2>
+
+<button class="langBtn" onclick="music.muted=true">Silenciar Música</button>
+<button class="langBtn" onclick="music.muted=false">Activar Música</button>
+
+<button class="langBtn" onclick="eatSound.muted=true">Silenciar Comer</button>
+<button class="langBtn" onclick="eatSound.muted=false">Activar Comer</button>
+
+<br><br>
+
+<button class="langBtn" onclick="returnMenu()">Volver al menú</button>
+
+<br><br>
+
+<button class="menuBtn" onclick="toggleSettings()">CERRAR</button>
+
+</div>
+
+<div id="mapMenu">
+
+<h2 id="mapTitle">MAPAS</h2>
+
+<img src="mapa_mai.png" class="mapImg">
+<button class="menuBtn" onclick="startGame('mai')" id="mapMaiBtn">MAPA MAI</button>
+
+<img src="mapa_normal.png" class="mapImg">
+<button class="menuBtn" onclick="startGame('normal')" id="mapNormalBtn">MAPA NORMAL</button>
+
+<button class="menuBtn" onclick="backMenu()" id="backBtn">VOLVER</button>
+
+</div>
+
+<div id="game">
+
+<div id="scoreBox">0 / 100</div>
+<div id="cornerScore">0</div>
+
+<div id="progressBar">
+<div id="progress"></div>
+</div>
+
+<div id="mai">
+
+<div class="head">
+<div class="eye left"></div>
+<div class="eye right"></div>
+<div class="mouth" id="mouth"></div>
+</div>
+
+<div class="body"></div>
+
+</div>
+
+</div>
+
+<div id="gift">
+
+<h2 id="giftText">
+felis cumpleaños mai<br>
+de parte de lechugo y cyan :3
+</h2>
+
+<img src="foto_mai.jpg">
+
+<button class="menuBtn" onclick="restartGame()" id="playAgainBtn">VOLVER A JUGAR</button>
+
+</div>
+
+<div id="credits">
+
+<h2 id="creditsTitle">CRÉDITOS</h2>
+
+<p id="creditsText">
+created by lechugo and gustambouniversity<br>
+derechos reservados 2027
+</p>
+
+<img src="creditos.png">
+
+<br><br>
+
+<button class="menuBtn" onclick="closeCredits()" id="creditsBackBtn">VOLVER</button>
+
+</div>
+
+<audio id="music" src="music.mp3" loop></audio>
+<audio id="eatSound" src="eat.mp3"></audio>
+
+<script>
+
+let score=0
+let gameMode="mai"
+let spawnLoop
+let giftShown=false
+
+const music=document.getElementById("music")
+const eatSound=document.getElementById("eatSound")
+const mouth=document.getElementById("mouth")
+
+setTimeout(()=>{
+splash.style.display="none"
+menu.style.display="block"
+},5000)
+
+/* SETTINGS */
+
+function toggleSettings(){
+settings.style.display=settings.style.display=="block"?"none":"block"
+}
+
+/* IDIOMA */
+
+function setLang(lang){
+
+if(lang=="ar"){
+
+document.body.dir="rtl"
+
+playBtn.innerText="العب"
+creditsBtn.innerText="الاعتمادات"
+exitBtn.innerText="خروج"
+
+mapTitle.innerText="الخرائط"
+mapMaiBtn.innerText="خريطة ماي"
+mapNormalBtn.innerText="الخريطة العادية"
+backBtn.innerText="رجوع"
+
+langTitle.innerText="اللغة"
+audioTitle.innerText="الصوت"
+
+creditsTitle.innerText="الاعتمادات"
+creditsBackBtn.innerText="رجوع"
+
+playAgainBtn.innerText="العب مرة أخرى"
+
+giftText.innerHTML="عيد ميلاد سعيد ماي<br>من ليتشوغو و سيان :3"
+
+}else{
+
+document.body.dir="ltr"
+
+playBtn.innerText="JUGAR"
+creditsBtn.innerText="CRÉDITOS"
+exitBtn.innerText="SALIR"
+
+mapTitle.innerText="MAPAS"
+mapMaiBtn.innerText="MAPA MAI"
+mapNormalBtn.innerText="MAPA NORMAL"
+backBtn.innerText="VOLVER"
+
+langTitle.innerText="IDIOMA"
+audioTitle.innerText="SONIDO"
+
+creditsTitle.innerText="CRÉDITOS"
+creditsBackBtn.innerText="VOLVER"
+
+playAgainBtn.innerText="VOLVER A JUGAR"
+
+giftText.innerHTML="felis cumpleaños mai<br>de parte de lechugo y cyan :3"
+
+}
+
+}
+
+function openMaps(){
+menu.style.display="none"
+mapMenu.style.display="block"
+}
+
+function showCredits(){
+credits.style.display="block"
+}
+
+function closeCredits(){
+credits.style.display="none"
+}
+
+function startGame(mode){
+
+gameMode=mode
+
+mapMenu.style.display="none"
+game.style.display="block"
+
+music.volume=0.3
+music.play()
+
+if(mode=="mai"){
+
+document.body.style.background="url('fondo_mai.jpg') center/cover no-repeat"
+
+scoreBox.style.display="block"
+progressBar.style.display="block"
+cornerScore.style.display="none"
+
+}else{
+
+document.body.style.background="url('fondo_normal.jpg') center/cover no-repeat"
+
+scoreBox.style.display="none"
+progressBar.style.display="none"
+cornerScore.style.display="block"
+
+}
+
+spawnObjects()
+
+}
+
+function spawnObjects(){
+
+clearInterval(spawnLoop)
+
+spawnLoop=setInterval(()=>{
+
+let obj=document.createElement("img")
+obj.className="object"
+
+let isTomo=Math.random()<0.5
+
+obj.src=isTomo?"tomo.png":"lechuga.png"
+obj.dataset.points=isTomo?2:5
+
+obj.style.left=Math.random()*window.innerWidth+"px"
+obj.style.top="-80px"
+
+document.body.appendChild(obj)
+
+let fall=setInterval(()=>{
+
+let y=parseInt(obj.style.top)||0
+obj.style.top=y+3+"px"
+
+checkCatch(obj)
+
+if(y>window.innerHeight){
+obj.remove()
+clearInterval(fall)
+}
+
+},30)
+
+},1200)
+
+}
+
+function checkCatch(obj){
+
+let rect=obj.getBoundingClientRect()
+let zone=mai.getBoundingClientRect()
+
+if(rect.bottom>zone.top && rect.left<zone.right && rect.right>zone.left){
+
+let points=parseInt(obj.dataset.points)
+
+score+=points
+
+if(gameMode=="mai"){
+scoreBox.innerText=score+" / 100"
+progress.style.width=score+"%"
+}else{
+cornerScore.innerText=score
+}
+
+mouth.classList.add("chew")
+setTimeout(()=>mouth.classList.remove("chew"),200)
+
+eatSound.currentTime=0
+eatSound.play()
+
+obj.remove()
+
+if(score>=100 && gameMode=="mai" && !giftShown){
+
+giftShown=true
+gift.style.display="block"
+
+}
+
+}
+
+}
+
+function restartGame(){
+gift.style.display="none"
+score=0
+progress.style.width="0%"
+}
+
+function returnMenu(){
+
+clearInterval(spawnLoop)
+
+game.style.display="none"
+mapMenu.style.display="none"
+gift.style.display="none"
+
+menu.style.display="block"
+
+score=0
+giftShown=false
+
+document.querySelectorAll(".object").forEach(o=>o.remove())
+
+document.body.style.background="url('menu_fondo.jpg') center/cover no-repeat"
+
+}
+
+function backMenu(){
+returnMenu()
+}
+
+function exitGame(){
+window.close()
+}
+
+document.addEventListener("mousemove",(e)=>{
+mai.style.left=e.clientX-60+"px"
+})
+
+document.addEventListener("touchmove",(e)=>{
+mai.style.left=e.touches[0].clientX-60+"px"
+})
+
+</script>
+
+</body>
+</html>
